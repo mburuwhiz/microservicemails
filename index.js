@@ -2,6 +2,7 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require('path');
 const templates = require('./templates');
 
 dotenv.config();
@@ -9,6 +10,10 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'landing.html'));
+});
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
